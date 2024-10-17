@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+void setItems(int [], int);
+void searchItem(int [], int, int);
+
+int main()
+{
+    int a[50], item, itemShare;
+
+    printf("How many items do you want enter?... ");
+    scanf("%i", &item);
+    setItems(a, item);
+
+
+    printf("What items do you want to search for?... ");
+    scanf("%i", &itemShare);
+    searchItem(a, item, itemShare);
+
+    return 0;
+}
+
+void setItems(int a[], int items)
+{
+    int i;
+    for (i = 0; i < items; i++)
+    {
+        scanf("%i", &a[i]);
+    }
+}
+
+void searchItem(int array[], int count, int lost)
+{
+    int i;
+    for(i = 0; i < count; i++)
+    {
+        if (array[i] == lost)
+            printf("the item is found in position %i", i);
+    }
+}
