@@ -13,11 +13,14 @@ int main() {
 }
 
 int sizeString(char *caracter, int c){
-	if(*caracter == '\0'){
-		return c;
+	int result = c;
+	
+	if (*caracter == '\0') {
+		result = c;
+	} 
+	else {
+		result = sizeString(caracter + 1, c + 1);
 	}
-	if(*caracter != '\0'){
-		c = sizeString(caracter + 1, c + 1);
-	}
-	return c;
+	
+	return result;
 }

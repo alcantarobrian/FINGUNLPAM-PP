@@ -1,28 +1,29 @@
 #include <stdio.h>
 
-int cadena (char cad[],int pi,int pf)
-{
-	int r;
-	if (pi>=pf)
-		return(0);
-	else
-		if (cad[pi]==cad[pf])
-			r=cadena(cad,pi+1,pf-1);
-	else
-		r=1;
-	
-	return(r);
-}
+void elmBlanco(char *);
 
 int main(){
-	char string[] = "1111111111";
-	int i, j, nro;
-	i = 0;
-	j = 10;
+	char string[] = "Hola como estas";
 	
-	nro = cadena(string,i,j);
+	elmBlanco(string);
 	
-	printf("%i", nro);
-	
+	printf("El string sin espacios en blanco es: %s", string);
 	return 0;
+}
+
+void elmBlanco(char *str){
+	int i;
+	i = 0;
+	
+	if (*str != '\0') {
+		if (*str == ' ') {
+			while (str[i] != '\0') {
+				str[i] = str[i + 1];
+				i++;
+			}
+			elmBlanco(str);
+		} else {
+			elmBlanco(str + 1);
+		}
+	}
 }

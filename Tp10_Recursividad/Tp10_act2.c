@@ -16,12 +16,17 @@ int main() {
 
 char kCaracter(char *str, int k){
 	
-	if(*str == '\0'){
-		return '\0';
+	char result;
+	
+	if (*str == '\0') {
+		result = '\0';
+	} 
+	else if (k == 0) {
+		result = *str;
 	}
-	if (k == 0){
-		return *str;
+	else {
+		result = kCaracter(str + 1, k - 1);
 	}
 	
-	return kCaracter(str+1, k-1);
+	return result;
 }

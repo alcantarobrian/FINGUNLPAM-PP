@@ -12,15 +12,18 @@ int main() {
 }
 
 int sOcurrencias(char *str, char c, int cont){
+	int result = cont;
 	
-	if(*str == '\0'){
-		return cont;
+	if (*str == '\0') {
+		result = cont;
+	} else {
+		if (*str == c) {
+			result = sOcurrencias(str + 1, c, cont + 1);
+		} else {
+			result = sOcurrencias(str + 1, c, cont);
+		}
 	}
 	
-	if(*str == c){
-		cont++;
-	}
-	
-	return	sOcurrencias(str+1, c, cont);
+	return result;
 }
 

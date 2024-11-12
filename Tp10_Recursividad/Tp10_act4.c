@@ -22,13 +22,18 @@ int main(int argc, char *argv[]) {
 
 int caracString(char *str, char c, int pos){
 	
-	if(*str == '\0'){
-		return -1;
-	}
-	if (*str == c){
-		return pos;
-	}
+	int result;
 	
-	return caracString(str+1, c, pos+1);
+	if (*str == '\0') {
+		result = -1;
+	} 
+	else if (*str == c) {
+		result = pos;
+	} 
+	else {
+		result = caracString(str + 1, c, pos + 1);
+	}
+
+	return result;
 }
 
