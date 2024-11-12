@@ -96,12 +96,15 @@ void ingresar(p personas, int cantidad)
 	{
 		printf("Ingrese el numero de cuenta: ");
 		scanf("%i", &personas[i].nroCuenta);
+		fflush(stdin);
 		
 		printf("Ingrese el nombre: ");
-		scanf("%s", personas[i].nombre);
+		gets(personas[i].nombre);
+		fflush(stdin);
 		
 		printf("Ingrese el saldo: ");
 		scanf("%ld", &personas[i].saldo);
+		fflush(stdin);
 	}
 }
 
