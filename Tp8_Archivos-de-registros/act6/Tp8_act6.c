@@ -302,8 +302,3 @@ void show_hor(FILE *horarios, FILE *empleados) {
 		}
 	}
 }
-	
-	
-	
-	
-	

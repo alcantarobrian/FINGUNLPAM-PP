@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define DISTANCIA 5000
 
 // registros
 typedef struct
@@ -21,19 +22,22 @@ typedef struct
 	char direccion[30];
 }datos;
 
-// arreglo de registros
 typedef datos d_p[100];
 typedef carrera rtdos[100];
 
 int ingresar_datos(d_p datos_personas);
 void ingresar_resultados(rtdos resultados, int);
-void calcular_velocidad(rtdos resultados, int);
+int calcSegundos(s_tiempo tiempo);
+float calcVelocidad(int);
+void ordenar(rtdos resultados, int);
+void mostrar(d_p datos_personas, rtdos resultados, int);
 
 int main()
 {
 	int bcle, op, cantidad;
-
+	
 	d_p datos_maratonistas;
+	rtdos resultados;
 	
 	bcle = 1;
 	
@@ -50,11 +54,14 @@ int main()
 			cantidad = ingresar_datos(datos_maratonistas);
 			break;
 		case 2:
+			ingresar_resultados(resultados, cantidad);
 			break;
-
+			
 		case 3:
+			ordenar(resultados, cantidad);
+			mostrar(datos_maratonistas, resultados, cantidad);
 			break;
-
+			
 		case 4:
 			printf("FIN DE PROGRAMA");
 			bcle = 0;
@@ -94,10 +101,9 @@ int ingresar_datos(d_p datos_personas)
 	return cantidad;
 }
 
-int ingresar_resultados(rtdos resultados, int cantidad)
+void ingresar_resultados(rtdos resultados, int cantidad)
 {
 	int i;
-	float velocidad;
 	
 	for(i = 0; i < cantidad; i++)
 	{
@@ -112,3 +118,47 @@ int ingresar_resultados(rtdos resultados, int cantidad)
 	}
 }
 
+int calcSegundos(s_tiempo tiempo)
+{
+	return ((tiempo.minutos * 60) + tiempo.segundos);
+}
+
+float calcVelocidad(int tiempo_segundos)
+{
+	return (float)DISTANCIA / tiempo_segundos;
+}
+
+void ordenar(rtdos resultados, int cantidad)
+{
+	int i, j, tiempo1, tiempo2;
+	carrera temp;
+	
+	for(i = 0; i < cantidad-1; i++){
+		for(j = i + 1; j < cantidad; j++){
+			tiempo1 = calcSegundos(resultados[i].tiempo);
+			tiempo2 = calcSegundos(resultados[j].tiempo);
+			if(tiempo1 > tiempo2){
+				temp = resultados[i];
+				resultados[i] = resultados[j];
+				resultados[j] = temp;
+			}
+		}
+	}
+}
+
+void mostrar(d_p datos_personas, rtdos resultados, int cantidad)
+{
+	int i, tiempoSeg;
+	float velocidad;
+	
+	printf("\n%s %10s %10s %10s %15s %15s\n", "Posicion", "Nro.", "Tiempo", "Velocidad", "Apellido", "Nombre");
+	
+	for(i = 0; i < cantidad; i++)
+	{
+		tiempoSeg = calcSegundos(resultados[i].tiempo);
+		velocidad = calcVelocidad(tiempoSeg);
+		
+	
+		printf("%-10d %-10d %2d:%02d      %-10.2f %-15s %-15s\n", i + 1,resultados[i].nro_corredor,resultados[i].tiempo.minutos,resultados[i].tiempo.segundos,velocidad, datos_personas[i].apellido,datos_personas[i].nombre);
+	}
+}
